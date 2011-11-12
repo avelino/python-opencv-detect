@@ -26,7 +26,13 @@ def detect(image):
 
     # detect objects
     cascade = cvLoadHaarClassifierCascade('haarcascade_frontalface_alt.xml', cvSize(1,1))
-    faces = cvHaarDetectObjects(grayscale, cascade, storage, 1.2, 2, CV_HAAR_DO_CANNY_PRUNING, cvSize(50, 50))
+    faces = cvHaarDetectObjects(grayscale,
+            cascade,
+            storage,
+            1.2,
+            2,
+            CV_HAAR_DO_CANNY_PRUNING,
+            cvSize(50, 50))
 
     if faces.total > 0:
         print '=> face detected!'
