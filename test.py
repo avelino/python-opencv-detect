@@ -24,6 +24,9 @@ from opencv.highgui import *
 from opencv.cv import *
 
 camera = highgui.cvCreateCameraCapture(0)
+def detect_hand(image):
+    pass
+
 def detect_eye(image):
     image_size = cvGetSize(image)
 
@@ -91,6 +94,7 @@ def get_image():
     im = highgui.cvQueryFrame(camera)
     detect_face(im)
     detect_eye(im)
+    detect_hand(im)
     return opencv.adaptors.Ipl2PIL(im)
 
 fps = 30.0
