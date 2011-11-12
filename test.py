@@ -1,16 +1,33 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+"""
+    test
+
+    sample opencv and detect class
+
+    :copyright: (c) 2011 by the Avelino Labs Team
+    :author: Thiago Avelino
+    :license: New BSD License
+    :version: 0.1
+"""
+
+
+
 import pygame
 import Image
 from pygame.locals import *
 import sys
 
 import opencv
-#this is important for capturing/displaying images
 from opencv import highgui
 from opencv.highgui import *
 from opencv.cv import *
 
 camera = highgui.cvCreateCameraCapture(0)
-def detect(image):
+def detect_eye(image):
+    pass
+
+def detect_face(image):
     image_size = cvGetSize(image)
 
     # create grayscale version
@@ -38,13 +55,12 @@ def detect(image):
         print '=> face detected!'
         for i in faces:
             cvRectangle(image, cvPoint( int(i.x), int(i.y)),
-                         cvPoint(int(i.x + i.width), int(i.y + i.height)),
-                         CV_RGB(0, 255, 0), 3, 8, 0)
-
-
+                          cvPoint(int(i.x + i.width), int(i.y + i.height)),
+                          CV_RGB(0, 255, 0), 3, 8, 0)
 def get_image():
     im = highgui.cvQueryFrame(camera)
-    detect(im)
+    detect_face(im)
+    detect_eye(im)
     return opencv.adaptors.Ipl2PIL(im)
 
 fps = 30.0
