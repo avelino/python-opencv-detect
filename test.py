@@ -25,7 +25,35 @@ from opencv.cv import *
 
 camera = highgui.cvCreateCameraCapture(0)
 def detect_eye(image):
-    pass
+    image_size = cvGetSize(image)
+
+    # create grayscale version
+    grayscale = cvCreateImage(image_size, 8, 1)
+    cvCvtColor(image, grayscale, CV_BGR2GRAY)
+
+    # create storage
+    storage = cvCreateMemStorage(0)
+    cvClearMemStorage(storage)
+
+    # equalize histogram
+    cvEqualizeHist(grayscale, grayscale)
+
+    caseye = cvLoadHaarClassifierCascade('haarcascade_eye.xml', cvSize(1,1))
+    eyes = cvHaarDetectObjects(grayscale,
+            caseye,
+            storage,
+            1.1,
+            2,
+            CV_HAAR_DO_CANNY_PRUNING,
+            cvSize(50, 50))
+
+    if eyes.total > 0:
+        print '=> eye detected!'
+        for i in eyes:
+            cvRectangle(image, cvPoint( int(i.x), int(i.y)),
+                          cvPoint(int(i.x + i.width), int(i.y + i.height)),
+                          CV_RGB(0, 255, 0), 3, 8, 0)
+
 
 def detect_face(image):
     image_size = cvGetSize(image)
@@ -57,6 +85,8 @@ def detect_face(image):
             cvRectangle(image, cvPoint( int(i.x), int(i.y)),
                           cvPoint(int(i.x + i.width), int(i.y + i.height)),
                           CV_RGB(0, 255, 0), 3, 8, 0)
+
+
 def get_image():
     im = highgui.cvQueryFrame(camera)
     detect_face(im)
