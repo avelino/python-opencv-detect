@@ -52,7 +52,7 @@ def detect_eye(image):
         for i in eyes:
             cvRectangle(image, cvPoint( int(i.x), int(i.y)),
                           cvPoint(int(i.x + i.width), int(i.y + i.height)),
-                          CV_RGB(0, 255, 0), 3, 8, 0)
+                          CV_RGB(255, 0, 0), 1, 8, 0)
 
 
 def detect_face(image):
@@ -84,7 +84,7 @@ def detect_face(image):
         for i in faces:
             cvRectangle(image, cvPoint( int(i.x), int(i.y)),
                           cvPoint(int(i.x + i.width), int(i.y + i.height)),
-                          CV_RGB(0, 255, 0), 3, 8, 0)
+                          CV_RGB(0, 255, 0), 2, 8, 0)
 
 
 def get_image():
